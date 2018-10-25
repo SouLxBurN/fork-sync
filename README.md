@@ -13,7 +13,7 @@ This is a small bash script I have written for syncing multiple modules that sha
 * Thats all you need!
 
 # Prerequisuites
-* You have to have git CCI installed. (duh)
+* You have to have git CLI installed. (duh)
 * This script assumes `upstream` is set to the original remote respository. (The repo you forked)
 * This script assumes `origin` is set to the remote fork respository. (Your remote fork)
 
