@@ -1,0 +1,6 @@
+# Define you project locations below
+# This is the directory the script will execute git commands
+# PATHS MUST BE ABSOLUTE!!
+# For example:
+# /path/to/your/project/folder
+
