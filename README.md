@@ -8,8 +8,10 @@ This is a small bash script I have written for syncing multiple modules that sha
   * Lines starting with # are ignored in the projects file.
 * You probably need to give syncb executable privledges.
   * `sudo chmod +x syncb`
-* Create an alias in your shell's configuration file i.e. `.bashrc` or `.zshrc`
+* Create an alias and environment variable your shell's configuration file i.e. `.bashrc` or `.zshrc`
+  * Example: `export SYNCB_HOME=~/projects/fork-sync/`
   * Example: `alias syncb="~/projects/fork-sync/syncb"`
+  * __You can skip this part and run the script directly if you want.__
 * Thats all you need!
 
 # Prerequisuites

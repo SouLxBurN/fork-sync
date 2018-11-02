@@ -3,29 +3,36 @@ if [ -z "$1" ]; then
 	echo "No Branch Specified. Please Specify a Branch"
 	echo "Example: syncb dev-branch"
 else
+	if [ -z "$SYNCB_HOME" ]; then
+		echo "WARNING: SYNCB_HOME is not defined, defaulting to the current directory"
+		SYNCB_HOME=.
+	fi
 	while read line; do
+		# Ignoring empty and commented lines in projects file
 		if [ ! -z "$line" ] && [[ ${line::1} != "#" ]]; then
 			echo "Syncing $line $1..."
 			cd $line
-			git status
-			isGitRepo="$?"
-			if [[ $isGitRepo != "0" ]]; then
-				echo "$line is not a git repository"
-			else
-				git stash
-				git checkout $1
-				checkoutSuccess="$?"
-				if [[ $checkoutSuccess != "0" ]]; then
-					echo "Failed to checkout branch $1"
+			# Checking if the cd command succeeded
+			if [ $? -eq 0 ]; then
+				isGitRepo="$(git rev-parse --is-inside-work-tree)"
+				if [ "$isGitRepo" ]; then
+					git stash
+					git checkout $1
+					checkoutSuccess="$?"
+					if [[ $checkoutSuccess != "0" ]]; then
+						echo "Failed to checkout branch $1"
+					else
+						git fetch upstream
+						git pull upstream $1
+						git push -u origin $1 --no-verify
+					fi
+					git stash pop
+					echo "$line $1 - Sync Complete"
 				else
-					git fetch upstream
-					git pull upstream $1
-					git push -u origin $1 --no-verify
+					echo "$line is not a git repository"
 				fi
-				git stash pop
-				echo "$line $1 - Sync Complete"
 			fi
 		fi
-	done < ./projects
+	done < $SYNCB_HOME/projects
 	echo "Synced $1 for all projects" 
 fi
