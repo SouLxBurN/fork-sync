@@ -17,12 +17,13 @@ else
 				isGitRepo="$(git rev-parse --is-inside-work-tree)"
 				if [ "$isGitRepo" ]; then
 					git stash
+					git fetch
+					git fetch upstream
 					git checkout $1
 					checkoutSuccess="$?"
 					if [[ $checkoutSuccess != "0" ]]; then
 						echo "Failed to checkout branch $1"
 					else
-						git fetch upstream
 						git pull upstream $1
 						git push -u origin $1 --no-verify
 					fi
