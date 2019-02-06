@@ -26,9 +26,10 @@ This is a small bash script I have written for syncing multiple modules that sha
 
 # How it works
 The script will iterate over each project listed in the __`projects`__ file.
-1. Stash any current changes
-2. Checkout the specified branch from __origin__, if it doesn't exist, __upstream__
+1. Stash any current changes.
+2. Fetch from __origin__ and __upstream__.
+3. Checkout the specified branch from __origin__, if it doesn't exist, __upstream__
    * If its unable to checkout, script will stop for that project, pop stash, and move on.
-3. Fetch and pull any changes from the __upstream__ repository
-4. Push any new changes from __upstream__ to __origin__
-5. Pop the stash, leaving your uncommitted changes back the way they were! (Unless they conflict with new changes)
+4. Pull any changes from the __upstream__ repository.
+5. Push any new changes from __upstream__ to __origin__.
+6. Pop the stash, leaving your uncommitted changes back the way they were! (Unless they conflict with new changes).
